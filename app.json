@@ -1,0 +1,12 @@
+{
+  "name": "MyNoticeBoard4",
+  "displayName": "MyNoticeBoard4",
+  "expo": {
+    "name": "MyNoticeBoard4",
+    "slug": "MyNoticeBoard4",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
