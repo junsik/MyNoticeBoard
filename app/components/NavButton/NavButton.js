@@ -13,7 +13,7 @@ class NavButton extends React.Component {
 
         return (
             <TouchableOpacity onPress={onPress}>
-                <View style={styles.wrapper}>
+                <View style={styles.buttonStyle}>
                     {
                         (!text) ?
                             <Icon name={name}
@@ -22,7 +22,7 @@ class NavButton extends React.Component {
                                   iconStyle={{height: size}}
                                   color={color}/>
                             :
-                            <Text>{buttonText}</Text>
+                            <Text style={style.textStyle}>{buttonText}</Text>
                     }
                 </View>
             </TouchableOpacity>

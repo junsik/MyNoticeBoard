@@ -92,9 +92,27 @@ export function signOut() {
 }
 
 //Sign user in using Facebook
-export function signInWithFacebook(fbToken,) {
+export function signinUserWithGoogle(fbToken,) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
+            auth.signInWithPopup(provider).then(function (result) {
+                const user = result.user;
+                console.log(user);
+                //Get the user object from the realtime database
+                database.ref('users').child(user.uid).once('value')
+                .then((snapshot) => {
+                    const exists = (snapshot.val() !== null);
+
+                    //if the user exist in the DB, replace the user variable with the returned snapshot
+                    if (exists) user = snapshot.val();
+
+                    if (exists) dispatch({type: t.LOGGED_IN, user});
+                    resolve({exists, user});
+                })
+                .catch((error) => reject(error));
+            })
+            .catch((error) => reject(error));
+            /*
             const credential = provider.credential(fbToken);
             auth.signInWithCredential(credential)
                 .then((user) => {
@@ -113,6 +131,7 @@ export function signInWithFacebook(fbToken,) {
                         .catch((error) => reject(error));
                 })
                 .catch((error) => reject(error));
+                */
         });
     }
 }

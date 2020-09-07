@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { View } from 'react-native';
 
-import { Input } from 'react-native-elements'
+import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { isEmpty } from '../../utils/validate'
 import styles from "./styles"
 
@@ -13,7 +13,11 @@ class AuthTextInput extends Component {
 
         return (
             <View style={styles.container}>
-                <Input
+                {
+                    (showLabel) &&
+                    <FormLabel>{this.props.label}</FormLabel>
+                }
+                <FormInput
                     autoCapitalize='none'
                     clearButtonMode='while-editing'
                     underlineColorAndroid={"#fff"}
@@ -25,9 +29,13 @@ class AuthTextInput extends Component {
                     inputStyle={styles.inputContainer}
                     placeholderTextColor={placeholderTextColor}
                     keyboardType={keyboardType}
-                    errorMessage={this.props.error}
-                    label={this.props.label}
                     value={this.props.value}/>
+                {
+                    (!isEmpty(this.props.error)) &&
+                    <FormValidationMessage>
+                        {this.props.error}
+                    </FormValidationMessage>
+                }
             </View>
         );
     }
